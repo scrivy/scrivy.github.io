@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.danielscrivano.com/</loc>
+    <loc>https://danielscrivano.com/blog/</loc>
     <lastmod>2022-04-10T12:01:08-07:00</lastmod>
   </url><url>
-    <loc>https://blog.danielscrivano.com/posts/t150-ram/</loc>
+    <loc>https://danielscrivano.com/blog/posts/t150-ram/</loc>
     <lastmod>2022-04-10T12:01:08-07:00</lastmod>
   </url><url>
-    <loc>https://blog.danielscrivano.com/posts/</loc>
+    <loc>https://danielscrivano.com/blog/posts/</loc>
     <lastmod>2022-04-10T12:01:08-07:00</lastmod>
   </url><url>
-    <loc>https://blog.danielscrivano.com/categories/</loc>
+    <loc>https://danielscrivano.com/blog/categories/</loc>
   </url><url>
-    <loc>https://blog.danielscrivano.com/tags/</loc>
+    <loc>https://danielscrivano.com/blog/tags/</loc>
   </url>
 </urlset>
