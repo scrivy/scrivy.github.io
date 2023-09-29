@@ -6,7 +6,17 @@
     <description>Recent content on Daniel Scrivano&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Apr 2022 12:01:08 -0700</lastBuildDate><atom:link href="https://danielscrivano.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Sep 2023 23:10:43 -0700</lastBuildDate><atom:link href="https://danielscrivano.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deploying Nightscout with CoreOS</title>
+      <link>https://danielscrivano.com/blog/posts/nightscout/</link>
+      <pubDate>Thu, 28 Sep 2023 23:10:43 -0700</pubDate>
+      
+      <guid>https://danielscrivano.com/blog/posts/nightscout/</guid>
+      <description>Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+Fedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images.</description>
+    </item>
+    
     <item>
       <title>Dell PowerEdge T150 Memory</title>
       <link>https://danielscrivano.com/blog/posts/t150-ram/</link>
