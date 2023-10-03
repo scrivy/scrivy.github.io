@@ -315,7 +315,7 @@ virt-install --connect=&#34;qemu:///system&#34; --name=&#34;${VM_NAME}&#34; --vc
 </code></pre><p>Save as deploy.sh, execute, and enjoy!</p>
 <h3 id="afterthoughts">Afterthoughts<a hidden class="anchor" aria-hidden="true" href="#afterthoughts">#</a></h3>
 <p>I hope this has helped you deploy Nightscout with CoreOS, but I intentionally left out a lot of details! The biggest value add should be the nightscout.bu template I created. There is a ton of documentation elsewhere for deploying to specific platforms.</p>
-<p>For a more complete nightscout.bu, check out <a href="https://gist.github.com/scrivy/633580d80523d184ca440ab44663a55c">my other gist</a>. It contains an additional nightscout-settings.json file that gets imported through the <code>IMPORT_CONFIG</code> env var. This was the only way I was able to load the maker module key and get IFTTT working. Upon IFTTT receiving an urgent low event, it will turn on a Wyze light.</p>
+<p>For a more complete nightscout.bu, check out <a href="https://gist.github.com/scrivy/633580d80523d184ca440ab44663a55c">my other gist</a>. It contains an additional <code>nightscout-settings.json</code> file that gets imported through the <code>IMPORT_CONFIG</code> env var. This was the only way I was able to load the maker module key and get IFTTT working. Upon IFTTT receiving an urgent low event, it will turn on a Wyze light.</p>
 
 
   </div>
