@@ -7,8 +7,9 @@
 <meta name="robots" content="index, follow">
 <title>Deploying Nightscout with CoreOS | Daniel Scrivano&#39;s blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
-Fedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images.">
+<meta name="description" content="Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS.">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/posts/nightscout/">
 <link crossorigin="anonymous" href="/blog/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
@@ -69,8 +70,9 @@ if (!doNotTrack) {
 }
 </script>
 <meta property="og:title" content="Deploying Nightscout with CoreOS" />
-<meta property="og:description" content="Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
-Fedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images." />
+<meta property="og:description" content="Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://danielscrivano.com/blog/posts/nightscout/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-09-28T23:10:43-07:00" />
@@ -78,8 +80,9 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Deploying Nightscout with CoreOS"/>
-<meta name="twitter:description" content="Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
-Fedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images."/>
+<meta name="twitter:description" content="Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS."/>
 
 
 <script type="application/ld+json">
@@ -108,12 +111,12 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
   "@type": "BlogPosting",
   "headline": "Deploying Nightscout with CoreOS",
   "name": "Deploying Nightscout with CoreOS",
-  "description": "Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.\nFedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images.",
+  "description": "Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.\nFedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.\nThis guide helps you deploy Nightscout to the platform of your choice with CoreOS.",
   "keywords": [
     
   ],
-  "articleBody": "Introduction Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.\nFedora CoreOS is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images.\nThis guide helps you deploy Nightscout to the platform of your choice on CoreOS.\nChoose a platform CoreOS has scripts to help you install on:\nBare Metal directly in RAM Alibaba Cloud AWS Azure DigitalOcean Exoscale GCP Hyper-V IBM Cloud KubeVirt libvirt OpenStack Nutanix QEMU Raspberry Pi 4 VirtualBox VMware Vultr I’m using the libvirt instructions but choose your ideal platform from the dropdown list under Provisioning Machines in the Getting Started with Fedora CoreOS.\nSystem Configuration CoreOS’ system configuration is bootstrapped from a single machine readable Ignition file, produced from a human readable Butane config you supply.\nDownload the latest version of Butane from the releases page on github or go through Getting Started with Butane to see the various ways you can acquire Butane.\nTo bootstrap your own instance use the template below but minimally replace the highlighted CHANGEMEs.\nnightscout.bu variant: fcos version: 1.4.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME storage: files: - path: /etc/hostname mode: 0644 contents: inline: | coreos - path: /etc/zincati/config.d/55-updates-strategy.toml contents: inline: | [updates] strategy = \"periodic\" [[updates.periodic.window]] days = [ \"Sat\", \"Sun\" ] start_time = \"11:00\" length_minutes = 60 - path: /etc/containers/containers.conf contents: inline: | [containers] default_sysctls = [ \"net.ipv4.ping_group_range=0 0\", ] [secrets] [secrets.opts] [network] network_backend = \"netavark\" [engine] [engine.runtimes] [engine.volume_plugins] [machine] - path: /etc/containers/systemd/mongo.container contents: inline: | [Unit] Description=mongo After=network-online.target Wants=network-online.target [Service] ExecStartPre=mkdir -p /var/srv/mongo [Container] AutoUpdate=registry Image=docker.io/mongo:4 Network=host Volume=/var/srv/mongo:/data/db:z [Install] WantedBy=multi-user.target - path: /etc/containers/systemd/nightscout.container contents: inline: | [Unit] Description=nightscout After=network-online.target mongo.service Wants=network-online.target [Container] AutoUpdate=registry Image=docker.io/nightscout/cgm-remote-monitor:latest Environment=TZ=America/Los_Angeles Environment=INSECURE_USE_HTTP=true Environment=SECURE_HSTS_HEADER=false Environment=HOSTNAME=0.0.0.0 Environment=MONGO_CONNECTION=mongodb://localhost:27017/nightscout Environment=API_SECRET=CHANGEME Environment=AUTH_DEFAULT_ROLES=readable Environment=DISPLAY_UNITS=mg/dl Network=host [Install] WantedBy=multi-user.target filesystems: - path: /var/srv device: /dev/disk/by-uuid/CHANGEME format: xfs with_mount_unit: true systemd: units: - name: podman-prune.service enabled: true contents: | [Unit] Description=podman prune After=network-online.target Wants=network-online.target [Service] Type=oneshot ExecStartPre=/usr/bin/sleep 30m ExecStart=/bin/podman system prune -af [Install] WantedBy=multi-user.target Let’s go over each CHANGEME: - ssh-rsa CHANGEME\nYour ssh public key so that you can log in. Usually located in ~/.ssh/id_rsa.pub.\nEnvironment=API_SECRET=CHANGEME\nThe password to make changes in Nightscout.\ndevice: /dev/disk/by-uuid/CHANGEME\nThe UUID of the block device attached to the virtual machine. How you prepare the filesystem depends on which platform you chose. Let’s go over that in the section below.\nPersistent storage Nightscout persists it’s data to a MongoDB database. You will need to format a partition that MongoDB will use before attaching it to the virtual machine. Check out CoreOS’s Configuring Storage to see the various ways to set this up, or keep following below if you use LVM.\nI use LVM to manage storage for my libvirt VMs. These are the few steps I took to prepare the filesystem but please DON’T continue until you understand what is happening.\nlvrceate -L 30G MyVolGroup -n CoreOsVol mkfs.xfs /dev/MyVolGroup/CoreOsVol blkid /dev/MyVolGroup/CoreOsVol The last command will return the UUID of the block device. Use it to replace the last CHANGEME in the template above.\nDeploy! Once you’ve finished writing your butane config, translate it to the system readable ignition file with:\nbutane --pretty --strict nightscout.bu \u003e nightscout.ign\nI modified this launch script to suite my system:\ndeploy.sh: #!/bin/bash IGNITION_CONFIG=\"/srv/coreos/nightscout.ign\" IMAGE=\"/srv/coreos/fedora-coreos-38.qcow2\" VM_NAME=\"nightscout\" VCPUS=\"4\" RAM_MB=\"4000\" STREAM=\"stable\" DISK_GB=\"10\" virt-install --connect=\"qemu:///system\" --name=\"${VM_NAME}\" --vcpus=\"${VCPUS}\" --memory=\"${RAM_MB}\" \\ --os-variant=\"fedora-coreos-$STREAM\" --import --graphics=none --autostart \\ --disk=\"size=${DISK_GB},backing_store=${IMAGE}\" \\ --disk=/dev/mapper/MyVolGroup-CoreOsVol \\ --network bridge=virbr0 \\ --qemu-commandline=\"-fw_cfg name=opt/com.coreos/config,file=${IGNITION_CONFIG}\" Save as deploy.sh, execute, and enjoy!\nAfterthoughts I hope this has helped you deploy Nightscout with CoreOS, but I intentionally left out a lot of details! The biggest value add should be the nightscout.bu template I created. There is a ton of documentation elsewhere for deploying to specific platforms.\nFor a more complete nightscout.bu, check out my other gist. It contains an additional nightscout-settings.json file that gets imported through the IMPORT_CONFIG env var. This was the only way I was able to load the maker module key and get IFTTT working. Upon IFTTT receiving an urgent low event, it will turn on a Wyze light.\n",
-  "wordCount" : "705",
+  "articleBody": "Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.\nFedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.\nThis guide helps you deploy Nightscout to the platform of your choice with CoreOS.\nChoose a platform CoreOS has scripts to help you install on:\nBare Metal directly in RAM Alibaba Cloud AWS Azure DigitalOcean Exoscale GCP Hyper-V IBM Cloud KubeVirt libvirt OpenStack Nutanix QEMU Raspberry Pi 4 VirtualBox VMware Vultr I’m using the libvirt platform instructions but choose your platform from the dropdown list under Provisioning Machines in Getting Started with Fedora CoreOS.\nSystem Configuration CoreOS’s system configuration is bootstrapped from a single machine readable Ignition file, produced from a human readable Butane config.\nDownload the latest version of Butane from their releases page on github or go through Getting Started with Butane to see the various ways you can acquire Butane.\nTo bootstrap your own Nightscout instance use the template below but minimally replace the highlighted CHANGEMEs.\nnightscout.bu variant: fcos version: 1.4.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME storage: files: - path: /etc/containers/systemd/mongodb.container contents: inline: | [Unit] Description=mongodb After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=docker.io/mongo:4 Network=host Volume=mongodb:/data/db [Install] WantedBy=multi-user.target - path: /etc/containers/systemd/nightscout.container contents: inline: | [Unit] Description=nightscout After=network-online.target mongodb.service Wants=network-online.target [Container] AutoUpdate=registry Image=docker.io/nightscout/cgm-remote-monitor:latest Environment=TZ=America/Los_Angeles Environment=INSECURE_USE_HTTP=true Environment=SECURE_HSTS_HEADER=false Environment=HOSTNAME=0.0.0.0 Environment=MONGO_CONNECTION=mongodb://localhost:27017/nightscout Environment=API_SECRET=CHANGEME Environment=AUTH_DEFAULT_ROLES=readable Environment=DISPLAY_UNITS=mg/dl Network=host [Install] WantedBy=multi-user.target Let’s go over each CHANGEME: - ssh-rsa CHANGEME\nYour ssh public key so that you can log in.\nEnvironment=API_SECRET=CHANGEME\nThe password to make changes in Nightscout.\nPersistent storage Nightscout persists it’s data to a MongoDB database. You might want to format a partition that MongoDB will use before attaching it to the virtual machine. Check out CoreOS’s Configuring Storage to see the various ways to set this up, or keep following below if you also use LVM.\nI use LVM to manage storage for my libvirt VMs. These are the few optional steps I took to prepare the filesystem but please DON’T continue unless you understand what is happening.\nlvrceate -L 30G MyVolGroup -n CoreOsVol mkfs.xfs /dev/MyVolGroup/CoreOsVol blkid /dev/MyVolGroup/CoreOsVol The last command will return the UUID of the block device. Use it to replace the last CHANGEME in this more complete nightscout template.\nDeploy! Once you’ve finished writing your butane config, translate it to the system readable ignition file with:\nbutane --pretty --strict nightscout.bu \u003e nightscout.ign\nI modified this libvirt launch script to suite my system:\ndeploy.sh: #!/bin/bash IGNITION_CONFIG=\"/srv/coreos/nightscout.ign\" IMAGE=\"/srv/coreos/fedora-coreos-38.qcow2\" VM_NAME=\"nightscout\" VCPUS=\"4\" RAM_MB=\"4000\" STREAM=\"stable\" DISK_GB=\"12\" virt-install --connect=\"qemu:///system\" --name=\"${VM_NAME}\" --vcpus=\"${VCPUS}\" --memory=\"${RAM_MB}\" \\ --os-variant=\"fedora-coreos-$STREAM\" --import --graphics=none --autostart \\ --disk=\"size=${DISK_GB},backing_store=${IMAGE}\" \\ --network bridge=virbr0 \\ --qemu-commandline=\"-fw_cfg name=opt/com.coreos/config,file=${IGNITION_CONFIG}\" Save as deploy.sh, execute, and enjoy!\nAfterthoughts I hope this has helped you deploy Nightscout with CoreOS, but I intentionally left out a lot of details! The biggest value add should be the nightscout.bu template I created. There is a ton of documentation elsewhere for deploying to specific platforms.\nFor a more complete nightscout.bu, check out my other gist. It contains an additional nightscout-settings.json file that gets imported through the IMPORT_CONFIG env var. This was the only way I was able to load the maker module key and get IFTTT working. Upon IFTTT receiving an urgent low event, it will turn on a Wyze light.\n",
+  "wordCount" : "571",
   "inLanguage": "en",
   "datePublished": "2023-09-28T23:10:43-07:00",
   "dateModified": "2023-09-28T23:10:43-07:00",
@@ -189,9 +192,9 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 </div>
   </header> 
   <div class="post-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
-<p>Nightscout (also known as CGM in the Cloud) is an open-source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as <a href="https://ifttt.com">IFTTT</a>.</p>
-<p><a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> is an immutable operating system made for running containers. It can be configured to automatically fetch security updates and new container images.</p>
-<p><strong>This guide helps you deploy Nightscout to the platform of your choice on CoreOS.</strong></p>
+<p><a href="http://www.nightscout.info/">Nightscout</a> is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as <a href="https://ifttt.com">IFTTT</a>.</p>
+<p><a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.</p>
+<p><strong>This guide helps you deploy <a href="http://www.nightscout.info/">Nightscout</a> to the platform of your choice with <a href="https://fedoraproject.org/coreos/">CoreOS</a>.</strong></p>
 <h3 id="choose-a-platform">Choose a platform<a hidden class="anchor" aria-hidden="true" href="#choose-a-platform">#</a></h3>
 <p>CoreOS has scripts to help you install on:</p>
 <ul>
@@ -215,11 +218,11 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 <li>VMware</li>
 <li>Vultr</li>
 </ul>
-<p>I&rsquo;m using the <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/">libvirt instructions</a> but choose your ideal platform from the dropdown list under Provisioning Machines in the <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/">Getting Started with Fedora CoreOS</a>.</p>
+<p>I&rsquo;m using the <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/">libvirt platform instructions</a> but choose your platform from the dropdown list under <em>Provisioning Machines</em> in <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/">Getting Started with Fedora CoreOS</a>.</p>
 <h3 id="system-configuration">System Configuration<a hidden class="anchor" aria-hidden="true" href="#system-configuration">#</a></h3>
-<p>CoreOS&rsquo; system configuration is bootstrapped from a single machine readable <a href="https://coreos.github.io/ignition/">Ignition</a> file, produced from a human readable <a href="https://coreos.github.io/butane/">Butane</a> config you supply.</p>
-<p>Download the latest version of <a href="https://coreos.github.io/butane/">Butane</a> from the <a href="https://github.com/coreos/butane/releases">releases page on github</a> or go through <a href="https://coreos.github.io/butane/getting-started/">Getting Started with Butane</a> to see the various ways you can acquire Butane.</p>
-<p>To bootstrap your own instance use the template below but minimally replace the highlighted CHANGEMEs.</p>
+<p>CoreOS&rsquo;s system configuration is bootstrapped from a single machine readable <a href="https://coreos.github.io/ignition/">Ignition</a> file, produced from a human readable <a href="https://coreos.github.io/butane/">Butane</a> config.</p>
+<p>Download the latest version of Butane from their <a href="https://github.com/coreos/butane/releases">releases page on github</a> or go through <a href="https://coreos.github.io/butane/getting-started/">Getting Started with Butane</a> to see the various ways you can acquire Butane.</p>
+<p>To bootstrap your own Nightscout instance use the template below but minimally replace the highlighted CHANGEMEs.</p>
 <h4 id="nightscoutbuhttpsgistgithubcomscrivyecbab610ce2a71a6daad4aac72aad436"><a href="https://gist.github.com/scrivy/ecbab610ce2a71a6daad4aac72aad436">nightscout.bu</a><a hidden class="anchor" aria-hidden="true" href="#nightscoutbuhttpsgistgithubcomscrivyecbab610ce2a71a6daad4aac72aad436">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variant</span>: <span style="color:#ae81ff">fcos</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">1.4.0</span>
@@ -230,51 +233,19 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 </span></span><span style="display:flex; background-color:#3c3d38"><span>        - <span style="color:#ae81ff">ssh-rsa CHANGEME</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">storage</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">files</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/hostname</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">0644</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          coreos</span>          
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/zincati/config.d/55-updates-strategy.toml</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [updates]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          strategy = &#34;periodic&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [[updates.periodic.window]]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          days = [ &#34;Sat&#34;, &#34;Sun&#34; ]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          start_time = &#34;11:00&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          length_minutes = 60</span>          
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/containers/containers.conf</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [containers]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          default_sysctls = [
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;net.ipv4.ping_group_range=0 0&#34;,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          ]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [secrets]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [secrets.opts]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [network]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          network_backend = &#34;netavark&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [engine]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [engine.runtimes]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [engine.volume_plugins]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [machine]</span>          
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/containers/systemd/mongo.container</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/containers/systemd/mongodb.container</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Unit]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Description=mongo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Description=mongodb
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          After=network-online.target
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Wants=network-online.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Service]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          ExecStartPre=mkdir -p /var/srv/mongo
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Container]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          AutoUpdate=registry
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Image=docker.io/mongo:4
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Network=host
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Volume=/var/srv/mongo:/data/db:z
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Volume=mongodb:/data/db
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Install]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>          
@@ -283,7 +254,7 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Unit]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Description=nightscout
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          After=network-online.target mongo.service
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          After=network-online.target mongodb.service
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Wants=network-online.target
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Container]
@@ -291,66 +262,40 @@ Fedora CoreOS is an immutable operating system made for running containers. It c
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Image=docker.io/nightscout/cgm-remote-monitor:latest
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=TZ=America/Los_Angeles
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=INSECURE_USE_HTTP=true
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#e6db74">          Environment=SECURE_HSTS_HEADER=false
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=SECURE_HSTS_HEADER=false
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=HOSTNAME=0.0.0.0
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=MONGO_CONNECTION=mongodb://localhost:27017/nightscout
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=API_SECRET=CHANGEME
+</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#e6db74">          Environment=API_SECRET=CHANGEME
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=AUTH_DEFAULT_ROLES=readable
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Environment=DISPLAY_UNITS=mg/dl
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Network=host
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Install]
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>          
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">filesystems</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/var/srv</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">device</span>: <span style="color:#ae81ff">/dev/disk/by-uuid/CHANGEME</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">format</span>: <span style="color:#ae81ff">xfs</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with_mount_unit</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">systemd</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">units</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">podman-prune.service</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>: |<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [Unit]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Description=podman prune
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        After=network-online.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Wants=network-online.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [Service]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Type=oneshot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ExecStartPre=/usr/bin/sleep 30m
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ExecStart=/bin/podman system prune -af
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [Install]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        WantedBy=multi-user.target</span>        </span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>          </span></span></code></pre></div>
 <h4 id="lets-go-over-each-changeme">Let&rsquo;s go over each CHANGEME:<a hidden class="anchor" aria-hidden="true" href="#lets-go-over-each-changeme">#</a></h4>
 <blockquote>
 <p><code>- ssh-rsa CHANGEME</code></p>
 </blockquote>
-<p>Your ssh public key so that you can log in. Usually located in ~/.ssh/id_rsa.pub.</p>
+<p>Your <a href="https://www.ssh.com/academy/ssh/public-key-authentication">ssh public key</a> so that you can log in.</p>
 <blockquote>
 <p><code>Environment=API_SECRET=CHANGEME</code></p>
 </blockquote>
 <p>The password to make changes in Nightscout.</p>
-<blockquote>
-<p><code>device: /dev/disk/by-uuid/CHANGEME</code></p>
-</blockquote>
-<p>The UUID of the <a href="https://en.wikipedia.org/wiki/Device_file">block device</a> attached to the virtual machine. How you prepare the filesystem depends on which platform you chose. Let&rsquo;s go over that in the section below.</p>
 <h3 id="persistent-storage">Persistent storage<a hidden class="anchor" aria-hidden="true" href="#persistent-storage">#</a></h3>
-<p>Nightscout persists it&rsquo;s data to a MongoDB database. You will need to format a partition that MongoDB will use before attaching it to the virtual machine. Check out CoreOS&rsquo;s <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/storage/">Configuring Storage</a> to see the various ways to set this up, or keep following below if you use <a href="https://wiki.archlinux.org/title/LVM">LVM</a>.</p>
-<p>I use <a href="https://wiki.archlinux.org/title/LVM">LVM</a> to manage storage for my libvirt VMs. These are the few steps I took to prepare the filesystem but please DON&rsquo;T continue until you understand what is happening.</p>
+<p>Nightscout persists it&rsquo;s data to a MongoDB database. You might want to format a partition that MongoDB will use before attaching it to the virtual machine. Check out CoreOS&rsquo;s <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/storage/">Configuring Storage</a> to see the various ways to set this up, or keep following below if you also use <a href="https://wiki.archlinux.org/title/LVM">LVM</a>.</p>
+<p>I use <a href="https://wiki.archlinux.org/title/LVM">LVM</a> to manage storage for my libvirt VMs. These are the few <strong>optional</strong> steps I took to prepare the filesystem but please DON&rsquo;T continue unless you understand what is happening.</p>
 <ul>
 <li><code>lvrceate -L 30G MyVolGroup -n CoreOsVol</code></li>
 <li><code>mkfs.xfs /dev/MyVolGroup/CoreOsVol</code></li>
 <li><code>blkid /dev/MyVolGroup/CoreOsVol</code></li>
 </ul>
-<p>The last command will return the UUID of the block device. Use it to replace the last CHANGEME in the template above.</p>
+<p>The last command will return the UUID of the block device. Use it to replace the last CHANGEME in <a href="https://gist.github.com/scrivy/633580d80523d184ca440ab44663a55c">this more complete nightscout template</a>.</p>
 <h3 id="deploy">Deploy!<a hidden class="anchor" aria-hidden="true" href="#deploy">#</a></h3>
 <p>Once you&rsquo;ve finished writing your butane config, translate it to the system readable ignition file with:</p>
 <blockquote>
 <p><code>butane --pretty --strict nightscout.bu &gt; nightscout.ign</code></p>
 </blockquote>
-<p>I modified <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/">this launch script</a> to suite my system:</p>
+<p>I modified <a href="https://docs.fedoraproject.org/en-US/fedora-coreos/provisioning-libvirt/">this libvirt launch script</a> to suite my system:</p>
 <h4 id="deploysh">deploy.sh:<a hidden class="anchor" aria-hidden="true" href="#deploysh">#</a></h4>
 <pre tabindex="0"><code>#!/bin/bash
 
@@ -360,12 +305,11 @@ VM_NAME=&#34;nightscout&#34;
 VCPUS=&#34;4&#34;
 RAM_MB=&#34;4000&#34;
 STREAM=&#34;stable&#34;
-DISK_GB=&#34;10&#34;
+DISK_GB=&#34;12&#34;
 
 virt-install --connect=&#34;qemu:///system&#34; --name=&#34;${VM_NAME}&#34; --vcpus=&#34;${VCPUS}&#34; --memory=&#34;${RAM_MB}&#34; \
 	--os-variant=&#34;fedora-coreos-$STREAM&#34; --import --graphics=none --autostart \
 	--disk=&#34;size=${DISK_GB},backing_store=${IMAGE}&#34; \
-	--disk=/dev/mapper/MyVolGroup-CoreOsVol \
 	--network bridge=virbr0 \
 	--qemu-commandline=&#34;-fw_cfg name=opt/com.coreos/config,file=${IGNITION_CONFIG}&#34;
 </code></pre><p>Save as deploy.sh, execute, and enjoy!</p>
