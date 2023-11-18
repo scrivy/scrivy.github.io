@@ -6,7 +6,17 @@
     <description>Recent content on Daniel Scrivano&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Sep 2023 23:10:43 -0700</lastBuildDate><atom:link href="https://danielscrivano.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 12:48:41 -0800</lastBuildDate><atom:link href="https://danielscrivano.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Podman auto-update on CoreOS</title>
+      <link>https://danielscrivano.com/blog/posts/coreos-podman-update/</link>
+      <pubDate>Sat, 18 Nov 2023 12:48:41 -0800</pubDate>
+      
+      <guid>https://danielscrivano.com/blog/posts/coreos-podman-update/</guid>
+      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS, add the highlighted Butane lines below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME storage: links: - path: /etc/systemd/system/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/system/podman-auto-update.timer hard: false - path: /etc/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: This is equivalent to running systemctl enable podman-auto-update.timer.</description>
+    </item>
+    
     <item>
       <title>Deploying Nightscout with CoreOS</title>
       <link>https://danielscrivano.com/blog/posts/nightscout/</link>

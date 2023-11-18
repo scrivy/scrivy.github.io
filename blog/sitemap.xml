@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://danielscrivano.com/blog/</loc>
-    <lastmod>2023-09-28T23:10:43-07:00</lastmod>
+    <lastmod>2023-11-18T12:48:41-08:00</lastmod>
   </url><url>
-    <loc>https://danielscrivano.com/blog/posts/nightscout/</loc>
-    <lastmod>2023-09-28T23:10:43-07:00</lastmod>
+    <loc>https://danielscrivano.com/blog/posts/coreos-podman-update/</loc>
+    <lastmod>2023-11-18T12:48:41-08:00</lastmod>
   </url><url>
     <loc>https://danielscrivano.com/blog/posts/</loc>
+    <lastmod>2023-11-18T12:48:41-08:00</lastmod>
+  </url><url>
+    <loc>https://danielscrivano.com/blog/posts/nightscout/</loc>
     <lastmod>2023-09-28T23:10:43-07:00</lastmod>
   </url><url>
     <loc>https://danielscrivano.com/blog/posts/t150-ram/</loc>
