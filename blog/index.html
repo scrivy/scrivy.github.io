@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.119.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.120.1"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -138,19 +138,6 @@ if (!doNotTrack) {
 
 <article class="first-entry"> 
   <header class="entry-header">
-    <h2>Podman auto-update on CoreOS
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>If you want to enable the podman auto-update systemd timer on Fedora CoreOS, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME storage: links: - path: /etc/systemd/system/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/system/podman-auto-update.timer hard: false - path: /etc/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: This is equivalent to running systemctl enable podman-auto-update.timer.</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-11-18 12:48:41 -0800 PST'>November 18, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Podman auto-update on CoreOS" href="https://danielscrivano.com/blog/posts/coreos-podman-update/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2>Deploying Nightscout with CoreOS
     </h2>
   </header>
@@ -159,7 +146,7 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
 This guide helps you deploy Nightscout to the platform of your choice with CoreOS....</p>
   </div>
-  <footer class="entry-footer"><span title='2023-09-28 23:10:43 -0700 PDT'>September 28, 2023</span></footer>
+  <footer class="entry-footer">&lt;span title=&#39;2023-09-28 23:10:43 -0700 PDT&#39;&gt;September 28, 2023&lt;/span&gt;</footer>
   <a class="entry-link" aria-label="post link to Deploying Nightscout with CoreOS" href="https://danielscrivano.com/blog/posts/nightscout/"></a>
 </article>
 
@@ -175,7 +162,7 @@ Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not toge
 NOTE 32 GB x 4 supports 2933 MT/s.
 I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?...</p>
   </div>
-  <footer class="entry-footer"><span title='2022-04-10 12:01:08 -0700 PDT'>April 10, 2022</span></footer>
+  <footer class="entry-footer">&lt;span title=&#39;2022-04-10 12:01:08 -0700 PDT&#39;&gt;April 10, 2022&lt;/span&gt;</footer>
   <a class="entry-link" aria-label="post link to Dell PowerEdge T150 Memory" href="https://danielscrivano.com/blog/posts/t150-ram/"></a>
 </article>
     </main>
