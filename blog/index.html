@@ -138,6 +138,19 @@ if (!doNotTrack) {
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2>Podman auto-update on CoreOS
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin </p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2023-11-18 12:48:41 -0800 PST&#39;&gt;November 18, 2023&lt;/span&gt;</footer>
+  <a class="entry-link" aria-label="post link to Podman auto-update on CoreOS" href="https://danielscrivano.com/blog/posts/coreos-podman-update/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Deploying Nightscout with CoreOS
     </h2>
   </header>
