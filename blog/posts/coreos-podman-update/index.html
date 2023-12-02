@@ -7,8 +7,8 @@
 <meta name="robots" content="index, follow">
 <title>Podman auto-update on CoreOS | Daniel Scrivano&#39;s blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ">
+<meta name="description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/posts/coreos-podman-update/">
 <link crossorigin="anonymous" href="/blog/assets/css/stylesheet.5cfc680b1eeaeef9efbced92d46c2a9e876b72ee14fba85846afc4cff9e6e6f8.css" integrity="sha256-XPxoCx7q7vnvvO2S1Gwqnodrcu4U&#43;6hYRq/Ez/nm5vg=" rel="preload stylesheet" as="style">
@@ -69,8 +69,8 @@ if (!doNotTrack) {
 }
 </script>
 <meta property="og:title" content="Podman auto-update on CoreOS" />
-<meta property="og:description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin " />
+<meta property="og:description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://danielscrivano.com/blog/posts/coreos-podman-update/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-11-18T12:48:41-08:00" />
@@ -78,8 +78,8 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Podman auto-update on CoreOS"/>
-<meta name="twitter:description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin "/>
+<meta name="twitter:description" content="If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin "/>
 
 
 <script type="application/ld+json">
@@ -108,12 +108,12 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
   "@type": "BlogPosting",
   "headline": "Podman auto-update on CoreOS",
   "name": "Podman auto-update on CoreOS",
-  "description": "If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:\nvariant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ",
+  "description": "If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:\nvariant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ",
   "keywords": [
     
   ],
-  "articleBody": "If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:\nvariant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ",
-  "wordCount" : "69",
+  "articleBody": "If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:\nvariant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin ",
+  "wordCount" : "66",
   "inLanguage": "en",
   "datePublished": "2023-11-18T12:48:41-08:00",
   "dateModified": "2023-11-18T12:48:41-08:00",
@@ -184,12 +184,12 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
     <h1 class="post-title">
       Podman auto-update on CoreOS
     </h1>
-    <div class="post-meta">&lt;span title=&#39;2023-11-18 12:48:41 -0800 PST&#39;&gt;November 18, 2023&lt;/span&gt;
+    <div class="post-meta"><span title='2023-11-18 12:48:41 -0800 PST'>November 18, 2023</span>
 
 </div>
   </header> 
-  <div class="post-content"><p>If you want to enable the <a href="https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html">podman auto-update</a> systemd timer on <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> for user units, add the highlighted <a href="https://coreos.github.io/butane/">Butane</a> lines below:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variant</span>: <span style="color:#ae81ff">fcos</span>
+  <div class="post-content"><p>If you want to enable the <a href="https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html">podman auto-update</a> systemd timer on <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> for rootless containers, check out the <a href="https://coreos.github.io/butane/">Butane</a> config below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variant</span>: <span style="color:#ae81ff">fcos</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">1.5.0</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">passwd</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">users</span>:
@@ -197,23 +197,21 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">ssh_authorized_keys</span>:
 </span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ssh-rsa CHANGEME</span>
 </span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">penguin</span>
-</span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#f92672">storage</span>:
-</span></span><span style="display:flex; background-color:#3c3d38"><span>  <span style="color:#f92672">files</span>:
-</span></span><span style="display:flex; background-color:#3c3d38"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/home/penguin/.config/containers/systemd/hello-world.container</span>
-</span></span><span style="display:flex; background-color:#3c3d38"><span>      <span style="color:#f92672">contents</span>:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">files</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/home/penguin/.config/containers/systemd/hello-world.container</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Unit]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Description=hello-world
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          After=network-online.target
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Wants=network-online.target
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Container]
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          AutoUpdate=registry
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Image=hello-world
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#e6db74">          Network=host
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Network=host
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Install]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target  files:</span>          
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=default.target</span>          
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">links</span>:
 </span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">target</span>: <span style="color:#ae81ff">/usr/lib/systemd/user/podman-auto-update.timer</span>

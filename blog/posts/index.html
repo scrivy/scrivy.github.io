@@ -148,10 +148,10 @@ if (!doNotTrack) {
     </h2>
   </header>
   <div class="entry-content">
-    <p>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin </p>
+    <p>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin </p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-11-18 12:48:41 -0800 PST&#39;&gt;November 18, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-11-18 12:48:41 -0800 PST'>November 18, 2023</span></footer>
   <a class="entry-link" aria-label="post link to Podman auto-update on CoreOS" href="https://danielscrivano.com/blog/posts/coreos-podman-update/"></a>
 </article>
 
@@ -165,7 +165,7 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
 This guide helps you deploy Nightscout to the platform of your choice with CoreOS....</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-09-28 23:10:43 -0700 PDT&#39;&gt;September 28, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-09-28 23:10:43 -0700 PDT'>September 28, 2023</span></footer>
   <a class="entry-link" aria-label="post link to Deploying Nightscout with CoreOS" href="https://danielscrivano.com/blog/posts/nightscout/"></a>
 </article>
 
@@ -181,7 +181,7 @@ Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not toge
 NOTE 32 GB x 4 supports 2933 MT/s.
 I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?...</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-04-10 12:01:08 -0700 PDT&#39;&gt;April 10, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-04-10 12:01:08 -0700 PDT'>April 10, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Dell PowerEdge T150 Memory" href="https://danielscrivano.com/blog/posts/t150-ram/"></a>
 </article>
     </main>

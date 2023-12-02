@@ -13,8 +13,8 @@
       <pubDate>Sat, 18 Nov 2023 12:48:41 -0800</pubDate>
       
       <guid>https://danielscrivano.com/blog/posts/coreos-podman-update/</guid>
-      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for user units, add the highlighted Butane lines below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world After=network-online.target Wants=network-online.target [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=multi-user.target files: links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin </description>
+      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /home/penguin/.config/containers/systemd/hello-world.container contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer user: name: penguin group: name: penguin </description>
     </item>
     
     <item>
