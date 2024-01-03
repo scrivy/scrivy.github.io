@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Daniel Scrivano&#39;s blog</title>
     <link>https://danielscrivano.com/blog/posts/</link>
     <description>Recent content in Posts on Daniel Scrivano&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Nov 2023 12:48:41 -0800</lastBuildDate><atom:link href="https://danielscrivano.com/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 12:48:41 -0800</lastBuildDate>
+    <atom:link href="https://danielscrivano.com/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Podman auto-update on CoreOS</title>
       <link>https://danielscrivano.com/blog/posts/coreos-podman-update/</link>
       <pubDate>Sat, 18 Nov 2023 12:48:41 -0800</pubDate>
-      
       <guid>https://danielscrivano.com/blog/posts/coreos-podman-update/</guid>
-      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out the Butane config below:
+      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out this Butane config below:
 variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /var/lib/systemd/linger/penguin mode: 0644 - path: /home/penguin/.config/containers/systemd/hello-world.container mode: 0644 contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target user: name: penguin group: name: penguin links: - path: /home/penguin/.</description>
     </item>
-    
     <item>
       <title>Deploying Nightscout with CoreOS</title>
       <link>https://danielscrivano.com/blog/posts/nightscout/</link>
       <pubDate>Thu, 28 Sep 2023 23:10:43 -0700</pubDate>
-      
       <guid>https://danielscrivano.com/blog/posts/nightscout/</guid>
-      <description>Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+      <description>Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
 This guide helps you deploy Nightscout to the platform of your choice with CoreOS.</description>
     </item>
-    
     <item>
       <title>Dell PowerEdge T150 Memory</title>
       <link>https://danielscrivano.com/blog/posts/t150-ram/</link>
       <pubDate>Sun, 10 Apr 2022 12:01:08 -0700</pubDate>
-      
       <guid>https://danielscrivano.com/blog/posts/t150-ram/</guid>
       <description>TLDR; buy this -&amp;gt; Kingston Server Premier 32GB 2933MHz Memory
 Why As of 2022-04-10, 128GB of ram from dell.com will cost you $2,540.28 USD. This is more than you need to spend for certified ram, but don&amp;rsquo;t rush to buy what you think might be compatible.
@@ -40,6 +36,5 @@ Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not toge
 NOTE 32 GB x 4 supports 2933 MT/s.
 I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?</description>
     </item>
-    
   </channel>
 </rss>
