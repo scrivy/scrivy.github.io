@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - Daniel Scrivano&#39;s blog">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/posts/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.2d50b1531bd1b3146d65c5543bd298f7f982786aadee4c223cb3a1cb51906106.css" integrity="sha256-LVCxUxvRsxRtZcVUO9KY9/mCeGqt7kwiPLOhy1GQYQY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://danielscrivano.com/blog/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://danielscrivano.com/blog/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://danielscrivano.com/blog/favicon-32x32.png">
@@ -19,6 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://danielscrivano.com/blog/posts/index.xml">
+<link rel="alternate" hreflang="en" href="https://danielscrivano.com/blog/posts/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,17 +57,20 @@
 
     </style>
 </noscript>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HPH34Y3Z8"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-7HPH34Y3Z8', { 'anonymize_ip': false });
-}
-</script>
-<meta property="og:title" content="Posts" />
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HPH34Y3Z8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-7HPH34Y3Z8');
+        }
+      </script><meta property="og:title" content="Posts" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://danielscrivano.com/blog/posts/" />
@@ -144,12 +148,24 @@ if (!doNotTrack) {
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Good Reads
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> (A few) Ops Lessons We All Learn The Hard Way The Grug Brained Developer Choose Boring Technology The Taxonomy of Terrible Programmers Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-06-14 12:30:46 -0700 PDT'>June 14, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Good Reads" href="https://danielscrivano.com/blog/posts/good-reads/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Podman auto-update on CoreOS
     </h2>
   </header>
   <div class="entry-content">
     <p>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out this Butane config below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /var/lib/systemd/linger/penguin mode: 0644 - path: /home/penguin/.config/containers/systemd/hello-world.container mode: 0644 contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target user: name: penguin group: name: penguin links: - path: /home/penguin/....</p>
+variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /var/lib/systemd/linger/penguin mode: 0644 - path: /home/penguin/.config/containers/systemd/hello-world.container mode: 0644 contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target user: name: penguin group: name: penguin links: - path: /home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer target: /usr/lib/systemd/user/podman-auto-update.timer hard: false user: name: penguin group: name: penguin</p>
   </div>
   <footer class="entry-footer"><span title='2023-11-18 12:48:41 -0800 PST'>November 18, 2023</span></footer>
   <a class="entry-link" aria-label="post link to Podman auto-update on CoreOS" href="https://danielscrivano.com/blog/posts/coreos-podman-update/"></a>
@@ -163,7 +179,8 @@ variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - 
   <div class="entry-content">
     <p>Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
-This guide helps you deploy Nightscout to the platform of your choice with CoreOS....</p>
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2023-09-28 23:10:43 -0700 PDT'>September 28, 2023</span></footer>
   <a class="entry-link" aria-label="post link to Deploying Nightscout with CoreOS" href="https://danielscrivano.com/blog/posts/nightscout/"></a>
@@ -179,7 +196,8 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
 Why As of 2022-04-10, 128GB of ram from dell.com will cost you $2,540.28 USD. This is more than you need to spend for certified ram, but don’t rush to buy what you think might be compatible.
 Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not together.
 NOTE 32 GB x 4 supports 2933 MT/s.
-I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?...</p>
+I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?), so don’t buy those either.
+...</p>
   </div>
   <footer class="entry-footer"><span title='2022-04-10 12:01:08 -0700 PDT'>April 10, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Dell PowerEdge T150 Memory" href="https://danielscrivano.com/blog/posts/t150-ram/"></a>
@@ -187,7 +205,8 @@ I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span>
+        <span>&copy; 2025 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

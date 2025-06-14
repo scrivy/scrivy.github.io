@@ -1,40 +1,96 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Daniel Scrivano&#39;s blog</title>
     <link>https://danielscrivano.com/blog/</link>
     <description>Recent content on Daniel Scrivano&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.142.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Nov 2023 12:48:41 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jun 2025 12:30:46 -0700</lastBuildDate>
     <atom:link href="https://danielscrivano.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Good Reads</title>
+      <link>https://danielscrivano.com/blog/posts/good-reads/</link>
+      <pubDate>Sat, 14 Jun 2025 12:30:46 -0700</pubDate>
+      <guid>https://danielscrivano.com/blog/posts/good-reads/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://netmeister.org/blog/ops-lessons.html&#34;&gt;(A few) Ops Lessons We All Learn The Hard Way&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://grugbrain.dev/&#34;&gt;The Grug Brained Developer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://mcfunley.com/choose-boring-technology&#34;&gt;Choose Boring Technology&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://aaronstannard.com/the-taxonomy-of-terrible-programmers/&#34;&gt;The Taxonomy of Terrible Programmers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://spin.atomicobject.com/redis-postgresql/&#34;&gt;Do You Really Need Redis? How to Get Away with Just PostgreSQL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://htmx.org/essays/locality-of-behaviour/&#34;&gt;Locality of Behaviour (LoB)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     <item>
       <title>Podman auto-update on CoreOS</title>
       <link>https://danielscrivano.com/blog/posts/coreos-podman-update/</link>
       <pubDate>Sat, 18 Nov 2023 12:48:41 -0800</pubDate>
       <guid>https://danielscrivano.com/blog/posts/coreos-podman-update/</guid>
-      <description>If you want to enable the podman auto-update systemd timer on Fedora CoreOS for rootless containers, check out this Butane config below:
-variant: fcos version: 1.5.0 passwd: users: - name: core ssh_authorized_keys: - ssh-rsa CHANGEME - name: penguin storage: files: - path: /var/lib/systemd/linger/penguin mode: 0644 - path: /home/penguin/.config/containers/systemd/hello-world.container mode: 0644 contents: inline: | [Unit] Description=hello-world [Container] AutoUpdate=registry Image=hello-world Network=host [Install] WantedBy=default.target user: name: penguin group: name: penguin links: - path: /home/penguin/.</description>
+      <description>&lt;p&gt;If you want to enable the &lt;a href=&#34;https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html&#34;&gt;podman auto-update&lt;/a&gt; systemd timer on &lt;a href=&#34;https://fedoraproject.org/coreos/&#34;&gt;Fedora CoreOS&lt;/a&gt; for rootless containers, check out this &lt;a href=&#34;https://coreos.github.io/butane/&#34;&gt;Butane&lt;/a&gt; config below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;variant&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;fcos&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;version&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1.5.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;passwd&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;users&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;core&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;ssh_authorized_keys&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - &lt;span style=&#34;color:#ae81ff&#34;&gt;ssh-rsa CHANGEME&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;penguin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;storage&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;files&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/var/lib/systemd/linger/penguin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;mode&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0644&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/home/penguin/.config/containers/systemd/hello-world.container&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;mode&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0644&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;contents&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;inline&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          [Unit]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          Description=hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          [Container]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          AutoUpdate=registry
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          Image=hello-world
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          Network=host
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          [Install]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;          WantedBy=default.target&lt;/span&gt;          
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;user&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;penguin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;penguin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;links&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;path&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/home/penguin/.config/systemd/user/timers.target.wants/podman-auto-update.timer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;target&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/usr/lib/systemd/user/podman-auto-update.timer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;hard&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;user&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;penguin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;penguin&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     <item>
       <title>Deploying Nightscout with CoreOS</title>
       <link>https://danielscrivano.com/blog/posts/nightscout/</link>
       <pubDate>Thu, 28 Sep 2023 23:10:43 -0700</pubDate>
       <guid>https://danielscrivano.com/blog/posts/nightscout/</guid>
-      <description>Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
-Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
-This guide helps you deploy Nightscout to the platform of your choice with CoreOS.</description>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.nightscout.info/&#34;&gt;Nightscout&lt;/a&gt; is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as &lt;a href=&#34;https://ifttt.com&#34;&gt;IFTTT&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fedoraproject.org/coreos/&#34;&gt;Fedora CoreOS&lt;/a&gt; is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This guide helps you deploy &lt;a href=&#34;http://www.nightscout.info/&#34;&gt;Nightscout&lt;/a&gt; to the platform of your choice with &lt;a href=&#34;https://fedoraproject.org/coreos/&#34;&gt;CoreOS&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Dell PowerEdge T150 Memory</title>
       <link>https://danielscrivano.com/blog/posts/t150-ram/</link>
       <pubDate>Sun, 10 Apr 2022 12:01:08 -0700</pubDate>
       <guid>https://danielscrivano.com/blog/posts/t150-ram/</guid>
-      <description>TLDR; buy this -&amp;gt; Kingston Server Premier 32GB 2933MHz Memory
-Why As of 2022-04-10, 128GB of ram from dell.com will cost you $2,540.28 USD. This is more than you need to spend for certified ram, but don&amp;rsquo;t rush to buy what you think might be compatible.
-Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not together.
-NOTE 32 GB x 4 supports 2933 MT/s.
-I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?</description>
+      <description>&lt;h3 id=&#34;tldr&#34;&gt;TLDR;&lt;/h3&gt;
+&lt;p&gt;buy this -&amp;gt; &lt;a href=&#34;https://www.newegg.com/kingston-32gb-288-pin-ddr4-sdram/p/1B4-00M4-003X4&#34;&gt;Kingston Server Premier 32GB 2933MHz Memory&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;why&#34;&gt;Why&lt;/h3&gt;
+&lt;p&gt;As of 2022-04-10, 128GB of ram from dell.com will cost you $2,540.28 USD. This is more than you need to spend for certified ram, but don&amp;rsquo;t rush to buy what you think might be compatible.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.dell.com/support/manuals/en-tt/poweredge-t150/pet150_ts_ism_pub/memory-specifications?guid=guid-9426b5cd-9e40-4c77-b9bc-2e87bf475dcc&amp;amp;lang=en-us&#34;&gt;Dell claims the T150 supports 128gb of memory, and 3200mhz memory, just not together.&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE 32 GB x 4 supports 2933 MT/s.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 96GB (maybe because of slow CL?), so don&amp;rsquo;t buy those either.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
