@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en" dir="auto" data-theme="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.142.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.152.2"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.2d50b1531bd1b3146d65c5543bd298f7f982786aadee4c223cb3a1cb51906106.css" integrity="sha256-LVCxUxvRsxRtZcVUO9KY9/mCeGqt7kwiPLOhy1GQYQY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://danielscrivano.com/blog/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://danielscrivano.com/blog/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://danielscrivano.com/blog/favicon-32x32.png">
@@ -19,7 +19,7 @@
 <link rel="mask-icon" href="https://danielscrivano.com/blog/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://danielscrivano.com/blog/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://danielscrivano.com/blog/index.xml" title="rss">
 <link rel="alternate" hreflang="en" href="https://danielscrivano.com/blog/">
 <noscript>
     <style>
@@ -41,23 +41,38 @@
                 --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
+                color-scheme: dark;
             }
 
             .list {
                 background: var(--theme);
             }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+            .toc {
+                background: var(--entry);
             }
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
             }
         }
 
     </style>
 </noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HPH34Y3Z8"></script>
       <script>
         var doNotTrack = false;
@@ -71,14 +86,14 @@
           gtag('js', new Date());
           gtag('config', 'G-7HPH34Y3Z8');
         }
-      </script><meta property="og:title" content="Daniel Scrivano&#39;s blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://danielscrivano.com/blog/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Daniel Scrivano&#39;s blog"/>
-<meta name="twitter:description" content=""/>
+      </script><meta property="og:url" content="https://danielscrivano.com/blog/">
+  <meta property="og:site_name" content="Daniel Scrivano&#39;s blog">
+  <meta property="og:title" content="Daniel Scrivano&#39;s blog">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Daniel Scrivano&#39;s blog">
+<meta name="twitter:description" content="">
 
 <script type="application/ld+json">
 {
@@ -87,32 +102,20 @@
   "name": "Daniel Scrivano's blog",
   "url": "https://danielscrivano.com/blog/",
   "description": "",
-  "thumbnailUrl": "https://danielscrivano.com/blog/favicon.ico",
+  "logo": "https://danielscrivano.com/blog/favicon.ico",
   "sameAs": [
       
   ]
 }
 </script>
 </head>
-
 <body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
+    <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="https://danielscrivano.com/blog/" accesskey="h" title="Daniel Scrivano&#39;s blog (Alt + H)">Daniel Scrivano&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -132,8 +135,6 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -148,7 +149,7 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p> -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck </p>
+    <p> -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck Rethinking Classical Concurrency Patterns (Golang) </p>
   </div>
   <footer class="entry-footer"><span title='2025-06-14 12:30:46 -0700 PDT'>June 14, 2025</span></footer>
   <a class="entry-link" aria-label="post link to Software Development Musings" href="https://danielscrivano.com/blog/posts/good-reads/"></a>
@@ -201,7 +202,8 @@ I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 
     </main>
     
 <footer class="footer">
-    <span>&copy; 2025 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span>
+        <span>&copy; 2026 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -215,9 +217,14 @@ I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 
 </a>
 
 <script>
-    let menu = document.getElementById('menu')
+    let menu = document.getElementById('menu');
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
         menu.onscroll = function () {
             localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
@@ -258,11 +265,12 @@ I tried 2 different Nemix types, 3200mhz and 2933mhz but they only worked up to 
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })

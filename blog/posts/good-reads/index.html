@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en" dir="auto" data-theme="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,10 +16,11 @@ Locality of Behaviour (LoB)
 The Grug Brained Developer
 The Taxonomy of Terrible Programmers
 Writing Code Was Never The Bottleneck
+Rethinking Classical Concurrency Patterns (Golang)
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/posts/good-reads/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.2d50b1531bd1b3146d65c5543bd298f7f982786aadee4c223cb3a1cb51906106.css" integrity="sha256-LVCxUxvRsxRtZcVUO9KY9/mCeGqt7kwiPLOhy1GQYQY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://danielscrivano.com/blog/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://danielscrivano.com/blog/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://danielscrivano.com/blog/favicon-32x32.png">
@@ -48,23 +49,38 @@ Writing Code Was Never The Bottleneck
                 --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
+                color-scheme: dark;
             }
 
             .list {
                 background: var(--theme);
             }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+            .toc {
+                background: var(--entry);
             }
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
             }
         }
 
     </style>
 </noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HPH34Y3Z8"></script>
       <script>
         var doNotTrack = false;
@@ -78,24 +94,17 @@ Writing Code Was Never The Bottleneck
           gtag('js', new Date());
           gtag('config', 'G-7HPH34Y3Z8');
         }
-      </script><meta property="og:title" content="Software Development Musings" />
-<meta property="og:description" content="
--2000 Lines of Code
-(A few) Ops Lessons We All Learn The Hard Way
-Choose Boring Technology
-Do You Really Need Redis? How to Get Away with Just PostgreSQL
-Locality of Behaviour (LoB)
-The Grug Brained Developer
-The Taxonomy of Terrible Programmers
-Writing Code Was Never The Bottleneck
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://danielscrivano.com/blog/posts/good-reads/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2025-06-14T12:30:46-07:00" />
-<meta property="article:modified_time" content="2025-06-14T12:30:46-07:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Software Development Musings"/>
+      </script><meta property="og:url" content="https://danielscrivano.com/blog/posts/good-reads/">
+  <meta property="og:site_name" content="Daniel Scrivano&#39;s blog">
+  <meta property="og:title" content="Software Development Musings">
+  <meta property="og:description" content=" -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck Rethinking Classical Concurrency Patterns (Golang) ">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-14T12:30:46-07:00">
+    <meta property="article:modified_time" content="2025-06-14T12:30:46-07:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Software Development Musings">
 <meta name="twitter:description" content="
 -2000 Lines of Code
 (A few) Ops Lessons We All Learn The Hard Way
@@ -105,7 +114,8 @@ Locality of Behaviour (LoB)
 The Grug Brained Developer
 The Taxonomy of Terrible Programmers
 Writing Code Was Never The Bottleneck
-"/>
+Rethinking Classical Concurrency Patterns (Golang)
+">
 
 
 <script type="application/ld+json">
@@ -134,12 +144,12 @@ Writing Code Was Never The Bottleneck
   "@type": "BlogPosting",
   "headline": "Software Development Musings",
   "name": "Software Development Musings",
-  "description": " -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck ",
+  "description": " -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck Rethinking Classical Concurrency Patterns (Golang) ",
   "keywords": [
     
   ],
-  "articleBody": " -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck ",
-  "wordCount" : "48",
+  "articleBody": " -2000 Lines of Code (A few) Ops Lessons We All Learn The Hard Way Choose Boring Technology Do You Really Need Redis? How to Get Away with Just PostgreSQL Locality of Behaviour (LoB) The Grug Brained Developer The Taxonomy of Terrible Programmers Writing Code Was Never The Bottleneck Rethinking Classical Concurrency Patterns (Golang) ",
+  "wordCount" : "53",
   "inLanguage": "en",
   "datePublished": "2025-06-14T12:30:46-07:00",
   "dateModified": "2025-06-14T12:30:46-07:00",
@@ -158,25 +168,13 @@ Writing Code Was Never The Bottleneck
 }
 </script>
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
+<body id="top">
+    <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="https://danielscrivano.com/blog/" accesskey="h" title="Daniel Scrivano&#39;s blog (Alt + H)">Daniel Scrivano&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -196,8 +194,6 @@ Writing Code Was Never The Bottleneck
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -225,6 +221,7 @@ Writing Code Was Never The Bottleneck
 <li><a href="https://grugbrain.dev/">The Grug Brained Developer</a></li>
 <li><a href="https://aaronstannard.com/the-taxonomy-of-terrible-programmers/">The Taxonomy of Terrible Programmers</a></li>
 <li><a href="https://ordep.dev/posts/writing-code-was-never-the-bottleneck/">Writing Code Was Never The Bottleneck</a></li>
+<li><a href="https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view">Rethinking Classical Concurrency Patterns (Golang)</a></li>
 </ul>
 
 
@@ -238,7 +235,8 @@ Writing Code Was Never The Bottleneck
     </main>
     
 <footer class="footer">
-    <span>&copy; 2025 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span>
+        <span>&copy; 2026 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -252,9 +250,14 @@ Writing Code Was Never The Bottleneck
 </a>
 
 <script>
-    let menu = document.getElementById('menu')
+    let menu = document.getElementById('menu');
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
         menu.onscroll = function () {
             localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
@@ -295,11 +298,12 @@ Writing Code Was Never The Bottleneck
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })

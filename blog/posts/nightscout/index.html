@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="en" dir="auto" data-theme="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@ Fedora CoreOS is a minimal operating system made for running containers. It can 
 This guide helps you deploy Nightscout to the platform of your choice with CoreOS.">
 <meta name="author" content="">
 <link rel="canonical" href="https://danielscrivano.com/blog/posts/nightscout/">
-<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.2d50b1531bd1b3146d65c5543bd298f7f982786aadee4c223cb3a1cb51906106.css" integrity="sha256-LVCxUxvRsxRtZcVUO9KY9/mCeGqt7kwiPLOhy1GQYQY=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/blog/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://danielscrivano.com/blog/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://danielscrivano.com/blog/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://danielscrivano.com/blog/favicon-32x32.png">
@@ -42,23 +42,38 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
                 --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
+                color-scheme: dark;
             }
 
             .list {
                 background: var(--theme);
             }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+            .toc {
+                background: var(--entry);
             }
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
             }
         }
 
     </style>
 </noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HPH34Y3Z8"></script>
       <script>
         var doNotTrack = false;
@@ -72,22 +87,23 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
           gtag('js', new Date());
           gtag('config', 'G-7HPH34Y3Z8');
         }
-      </script><meta property="og:title" content="Deploying Nightscout with CoreOS" />
-<meta property="og:description" content="Introduction
-Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
+      </script><meta property="og:url" content="https://danielscrivano.com/blog/posts/nightscout/">
+  <meta property="og:site_name" content="Daniel Scrivano&#39;s blog">
+  <meta property="og:title" content="Deploying Nightscout with CoreOS">
+  <meta property="og:description" content="Introduction Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
-This guide helps you deploy Nightscout to the platform of your choice with CoreOS." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://danielscrivano.com/blog/posts/nightscout/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-09-28T23:10:43-07:00" />
-<meta property="article:modified_time" content="2023-09-28T23:10:43-07:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Deploying Nightscout with CoreOS"/>
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-09-28T23:10:43-07:00">
+    <meta property="article:modified_time" content="2023-09-28T23:10:43-07:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deploying Nightscout with CoreOS">
 <meta name="twitter:description" content="Introduction
 Nightscout is an open source cloud application used by people with diabetes to visualize, store, and share the data from their Continuous Glucose Monitoring sensors in real-time. It can also send push notifications and trigger webhooks through integrations such as IFTTT.
 Fedora CoreOS is a minimal operating system made for running containers. It can be configured to automatically fetch security updates and newer container images.
-This guide helps you deploy Nightscout to the platform of your choice with CoreOS."/>
+This guide helps you deploy Nightscout to the platform of your choice with CoreOS.">
 
 
 <script type="application/ld+json">
@@ -140,25 +156,13 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
 }
 </script>
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
+<body id="top">
+    <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="https://danielscrivano.com/blog/" accesskey="h" title="Daniel Scrivano&#39;s blog (Alt + H)">Daniel Scrivano&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -178,8 +182,6 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -230,7 +232,7 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
 <p>CoreOS&rsquo;s system configuration is bootstrapped from a single machine readable <a href="https://coreos.github.io/ignition/">Ignition</a> file, produced from a human readable <a href="https://coreos.github.io/butane/">Butane</a> configuration file.</p>
 <p>Download the latest version of Butane from their <a href="https://github.com/coreos/butane/releases">releases page on GitHub</a> or go through <a href="https://coreos.github.io/butane/getting-started/">Getting Started with Butane</a> to see the various ways you can acquire Butane.</p>
 <p>To bootstrap your own Nightscout instance use the template below but minimally replace the highlighted CHANGEMEs.</p>
-<h4 id="nightscoutbuhttpsgistgithubcomscrivyecbab610ce2a71a6daad4aac72aad436"><a href="https://gist.github.com/scrivy/ecbab610ce2a71a6daad4aac72aad436">nightscout.bu</a><a hidden class="anchor" aria-hidden="true" href="#nightscoutbuhttpsgistgithubcomscrivyecbab610ce2a71a6daad4aac72aad436">#</a></h4>
+<h4 id="nightscoutbu"><a href="https://gist.github.com/scrivy/ecbab610ce2a71a6daad4aac72aad436">nightscout.bu</a><a hidden class="anchor" aria-hidden="true" href="#nightscoutbu">#</a></h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variant</span>: <span style="color:#ae81ff">fcos</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">1.5.0</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">passwd</span>:
@@ -254,7 +256,7 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Volume=mongodb:/data/db
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Install]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>          
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>
 </span></span><span style="display:flex;"><span>    - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/etc/containers/systemd/nightscout.container</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">contents</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">inline</span>: |<span style="color:#e6db74">
@@ -276,7 +278,7 @@ This guide helps you deploy Nightscout to the platform of your choice with CoreO
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Network=host
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          [Install]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span>          </span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WantedBy=multi-user.target</span></span></span></code></pre></div>
 <h4 id="lets-go-over-each-changeme">Let&rsquo;s go over each CHANGEME:<a hidden class="anchor" aria-hidden="true" href="#lets-go-over-each-changeme">#</a></h4>
 <blockquote>
 <p><code>- ssh-rsa CHANGEME</code></p>
@@ -333,7 +335,8 @@ virt-install --connect=&#34;qemu:///system&#34; --name=&#34;${VM_NAME}&#34; --vc
     </main>
     
 <footer class="footer">
-    <span>&copy; 2025 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span>
+        <span>&copy; 2026 <a href="https://danielscrivano.com/blog/">Daniel Scrivano&#39;s blog</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
@@ -347,9 +350,14 @@ virt-install --connect=&#34;qemu:///system&#34; --name=&#34;${VM_NAME}&#34; --vc
 </a>
 
 <script>
-    let menu = document.getElementById('menu')
+    let menu = document.getElementById('menu');
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
         menu.onscroll = function () {
             localStorage.setItem("menu-scroll-position", menu.scrollLeft);
         }
@@ -390,11 +398,12 @@ virt-install --connect=&#34;qemu:///system&#34; --name=&#34;${VM_NAME}&#34; --vc
 </script>
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
             localStorage.setItem("pref-theme", 'light');
         } else {
-            document.body.classList.add('dark');
+            html.dataset.theme = 'dark';
             localStorage.setItem("pref-theme", 'dark');
         }
     })
